@@ -1,0 +1,15 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title>Dzienniki</title>
+</head>
+<body>
+	<h1>Dzienniki:</h1>
+    <ul>
+		{%for diary in diarys%}
+		<li><a href="{% url 'diary_detail' diary.id %}">{{ diary.name }} - {{ diary.date }}</a></li>
+		{%endfor%}
+	</ul>
+	
+</body>
+</html>  

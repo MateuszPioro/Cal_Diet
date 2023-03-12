@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title>Dzienniki</title>
+</head>
+<body>
+
+{% block content %}
+  <h1>{{ diary.name }}</h1>
+  <h2>Data: {{ diary.date }}</h2>
+  <table>
+    <tr>
+      <th>Nazwa produktu</th>
+      <th>Białko</th>
+      <th>Tłuszcz</th>
+      <th>Węglowodany</th>
+      <th>Kalorie</th>
+    </tr>
+    {% for product in products %}
+      <tr>
+        <td>{{ product.name }}</td>
+        <td>{{ product.protein }}g</td>
+        <td>{{ product.fat }}g</td>
+        <td>{{ product.carbo }}g</td>
+        <td>{{ product.calories }} kcal</td>
+      </tr>
+    {% endfor %}
+    <tr>
+      <td colspan="4" style="text-align:right;">Suma kalorii:</td>
+      <td>{{ total_calories }} kcal</td>
+    </tr>
+  </table>
+{% endblock %}
+</body>
+</html> 

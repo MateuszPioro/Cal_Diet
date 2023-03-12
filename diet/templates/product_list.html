@@ -1,0 +1,14 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title>Lista produktów</title>
+</head>
+<body>
+	<h1>Lista produktów:</h1>
+	<ul>
+	{% for product in products %}
+	<li>{{ product.name }} - Białko: {{ product.protein }} g, Tłuszcz: {{ product.fat }} g, Węglowodany: {{ product.carbo }} g, Kalorie: {{ product.calories }}</li>
+	{% endfor %}
+	</ul>
+</body>
+</html>  

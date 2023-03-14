@@ -1,7 +1,7 @@
 from .models import Product,Diary
 from rest_framework import viewsets
 from .serializer import ProductSerializer,DiarySerializer
-from django.shortcuts import render, get_object_or_404
+from django.shortcuts import render, get_object_or_404, redirect
 
 class ProductViewSet(viewsets.ModelViewSet):
     queryset=Product.objects.all()
@@ -24,5 +24,11 @@ def diary_detail(request,diary_id):
 def product_list(request):
     products = Product.objects.all()
     return render(request,'product_list.html',{'products':products})
+
+def diary_remove_product(request,diary_id,product_id):
+    diary=get_object_or_404(Diary,pk=diary_id)
+    product=get_object_or_404(Product,pk=product_id)
+    diary.products.remove(product)
+    return redirect('diary_detail',diary_id=diary_id)
 
  

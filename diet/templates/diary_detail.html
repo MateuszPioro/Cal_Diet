@@ -23,6 +23,11 @@
         <td>{{ product.fat }}g</td>
         <td>{{ product.carbo }}g</td>
         <td>{{ product.calories }} kcal</td>
+        <td>
+          <form method="post" action="{% url 'diary_remove_product' diary.id product.id %}">
+            {%csrf_token%}
+            <button type="sumbit">Delete</button>
+          </form>
       </tr>
     {% endfor %}
     <tr>

@@ -8,6 +8,7 @@
 {% block content %}
   <h1>{{ diary.name }}</h1>
   <h2>Data: {{ diary.date }}</h2>
+  <a href="{% url 'diary_list' %}">List Diary</a>
   <table>
     <tr>
       <th>Nazwa produktu</th>
@@ -26,10 +27,21 @@
         <td>
           <form method="post" action="{% url 'diary_remove_product' diary.id product.id %}">
             {%csrf_token%}
-            <button type="sumbit">Delete</button>
+            <button type="submit">Delete</button>
           </form>
       </tr>
     {% endfor %}
+    <h3>Add product</h3>
+    <form method="post" action="{% url 'diary_add_product' diary.id%}">
+    {%csrf_token%}
+    <label for="product">Produt:</label>
+    <select id="product" name="product">
+      {% for product in all_products %}
+      <option value="{{ product.id }}">{{ product.name }}</option>
+      {% endfor %}
+    </select>
+    <button type="sumbit">Add</button>
+    </form>
     <tr>
       <td colspan="4" style="text-align:right;">Suma kalorii:</td>
       <td>{{ total_calories }} kcal</td>

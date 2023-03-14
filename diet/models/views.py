@@ -31,4 +31,17 @@ def diary_remove_product(request,diary_id,product_id):
     diary.products.remove(product)
     return redirect('diary_detail',diary_id=diary_id)
 
+def diary_add_product(request,diary_id):
+    diary=get_object_or_404(Diary,pk=diary_id)
+    if request.method=='POST':
+        product_id=request.POST.get('product')
+        product=get_object_or_404(Product,pk=product_id)
+        if product not in diary.products.all():
+            diary.products.add(product)
+        return redirect('diary_detail',diary_id=diary_id)
+
+    all_products = Product.objects.all()
+    return render(request, 'diary_add_product.html', {'diary': diary, 'all_products': all_products})
+
+
  

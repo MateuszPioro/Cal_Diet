@@ -15,4 +15,5 @@ urlpatterns = [
     path('diary/',views.diary_list,name='diary_list'),
     path('diary/<int:diary_id>/',views.diary_detail,name='diary_detail'),
     path('diary/<int:diary_id>/remove/<int:product_id>/',views.diary_remove_product,name='diary_remove_product'),
+    path('diary/add_product/<int:diary_id>/',views.diary_add_product,name='diary_add_product')
 ]

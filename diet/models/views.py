@@ -25,6 +25,10 @@ def product_list(request):
     products = Product.objects.all()
     return render(request,'product_list.html',{'products':products})
 
+# def products_remove(request,product_id):
+#     product=get_object_or_404(Product,pk=product_id)
+#     Product.remov
+
 def diary_remove_product(request,diary_id,product_id):
     diary=get_object_or_404(Diary,pk=diary_id)
     product=get_object_or_404(Product,pk=product_id)

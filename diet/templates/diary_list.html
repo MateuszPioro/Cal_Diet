@@ -10,6 +10,6 @@
 		<li><a href="{% url 'diary_detail' diary.id %}">{{ diary.name }} - {{ diary.date }}</a></li>
 		{%endfor%}
 	</ul>
-	
+	{% comment %} <a href="{% url 'add_product' %}">Dodaj produkt</a> {% endcomment %}
 </body>
 </html>  

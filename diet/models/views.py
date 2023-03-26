@@ -10,6 +10,17 @@ class ProductViewSet(viewsets.ModelViewSet):
 class DiaryViewSet(viewsets.ModelViewSet):
     queryset=Diary.objects.all()
     serializer_class  = DiarySerializer
+    
+def product_list(request):
+    products = Product.objects.all()
+    return render(request,'product_list.html',{'products':products})
+
+# def add_product(request):
+#     diary_id=request.GET.get('diary')
+
+# def products_remove(request,product_id):
+#     product=get_object_or_404(Product,pk=product_id)
+#     Product.remov    
 
 def diary_list(request):
     diary=Diary.objects.all()
@@ -20,14 +31,6 @@ def diary_detail(request,diary_id):
     products=diary.products.all()
     total_calories=diary.calories()
     return render(request, 'diary_detail.html', {'diary': diary, 'products': products, 'total_calories': total_calories})
-
-def product_list(request):
-    products = Product.objects.all()
-    return render(request,'product_list.html',{'products':products})
-
-# def products_remove(request,product_id):
-#     product=get_object_or_404(Product,pk=product_id)
-#     Product.remov
 
 def diary_remove_product(request,diary_id,product_id):
     diary=get_object_or_404(Diary,pk=diary_id)

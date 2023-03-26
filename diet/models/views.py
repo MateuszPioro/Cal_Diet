@@ -2,6 +2,7 @@ from .models import Product,Diary
 from rest_framework import viewsets
 from .serializer import ProductSerializer,DiarySerializer
 from django.shortcuts import render, get_object_or_404, redirect
+from .forms import ProductForm
 
 class ProductViewSet(viewsets.ModelViewSet):
     queryset=Product.objects.all()
@@ -15,13 +16,24 @@ def product_list(request):
     products = Product.objects.all()
     return render(request,'product_list.html',{'products':products})
 
-# def add_product(request):
-#     diary_id=request.GET.get('diary')
+def add_product(request):
+    if request.method =='POST':
+        form = ProductForm(request.POST)
+        if form.is_valid():
+            form.save()
+            return redirect('product_list')
+    else:
+        form = ProductForm()
+    return render(request,'add_product.html',{'form':form})
 
-# def products_remove(request,product_id):
-#     product=get_object_or_404(Product,pk=product_id)
-#     Product.remov    
+def remove_product(request, product_id):
+    product=get_object_or_404(Product,pk=product_id)
+    if request.method=='POST':
+        product.delete()
+        return redirect('product_list')
+    return render(request, 'product_list.html', {'product': product})
 
+ 
 def diary_list(request):
     diary=Diary.objects.all()
     return render(request,'diary_list.html',{'diarys':diary})
@@ -50,5 +62,8 @@ def diary_add_product(request,diary_id):
     all_products = Product.objects.all()
     return render(request, 'diary_add_product.html', {'diary': diary, 'all_products': all_products})
 
+
+
+ 
 
  

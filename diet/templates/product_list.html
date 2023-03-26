@@ -5,10 +5,18 @@
 </head>
 <body>
 	<h1>Lista produktów:</h1>
+	<a href="{% url 'add_product' %}">Dodaj produkt</a>
 	<ul>
-	{% for product in products %}
-	<li>{{ product.name }} - Białko: {{ product.protein }} g, Tłuszcz: {{ product.fat }} g, Węglowodany: {{ product.carbo }} g, Kalorie: {{ product.calories }}</li>
-	{% endfor %}
+		{% for product in products %}
+		<li>{{ product.name }} - Białko: {{ product.protein }} g, Tłuszcz: {{ product.fat }} g, Węglowodany: {{ product.carbo }} g, Kalorie: {{ product.calories }}
+			<form action="{% url 'remove_product' product.id %}" method="post">
+				{% csrf_token %}
+				<input type="hidden" name="product_id" value="{{ product.id }}">
+				<button type="submit">Usuń</button>
+			</form>
+		</li>
+		{% endfor %}
+		
 	</ul>
 </body>
 </html>  

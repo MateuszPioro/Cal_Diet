@@ -2,7 +2,7 @@ from .models import Product,Diary
 from rest_framework import viewsets
 from .serializer import ProductSerializer,DiarySerializer
 from django.shortcuts import render, get_object_or_404, redirect
-from .forms import ProductForm
+from .forms import ProductForm, DiaryForm
 
 class ProductViewSet(viewsets.ModelViewSet):
     queryset=Product.objects.all()
@@ -44,7 +44,18 @@ def update_product(request,product_id):
     else:
         form = ProductForm(instance=product)
     return render(request,'update_product.html',{'form':form})
- 
+
+def add_diary(request):
+    if request.method=="POST":
+        form = DiaryForm(request.POST)
+        if form.is_valid():
+            form.save()
+            return redirect('diary_list')
+    else:
+        form=DiaryForm()
+    return render(request,'add_diary.html',{'form':form})
+
+
 def diary_list(request):
     diary=Diary.objects.all()
     return render(request,'diary_list.html',{'diarys':diary})

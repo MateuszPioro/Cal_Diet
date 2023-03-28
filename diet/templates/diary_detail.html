@@ -36,7 +36,7 @@
     {%csrf_token%}
     <label for="product">Produt:</label>
     <select id="product" name="product">
-      {% for product in all_products %}
+      {% for product in diary.products.all %}
       <option value="{{ product.id }}">{{ product.name }}</option>
       {% endfor %}
     </select>

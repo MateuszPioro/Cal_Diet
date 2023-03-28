@@ -33,6 +33,17 @@ def remove_product(request, product_id):
         return redirect('product_list')
     return render(request, 'product_list.html', {'product': product})
 
+def update_product(request,product_id):
+    product=get_object_or_404(Product,id=product_id)
+    if request.method=='POST':
+        form = ProductForm(request.POST,instance=product)
+        if form.is_valid():
+            form.save()
+            return redirect('product_list')
+    
+    else:
+        form = ProductForm(instance=product)
+    return render(request,'update_product.html',{'form':form})
  
 def diary_list(request):
     diary=Diary.objects.all()

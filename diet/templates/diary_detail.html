@@ -1,52 +1,47 @@
-<!DOCTYPE html>
-<html>
-<head>
-	<title>Dzienniki</title>
-</head>
-<body>
+ 
+{% block title %}
+    {{ diary.name }} - Diary Details
+{% endblock %}
 
-{% block content %}
-  <h1>{{ diary.name }}</h1>
-  <h2>Data: {{ diary.date }}</h2>
-  <a href="{% url 'diary_list' %}">List Diary</a>
-  <table>
+<h1>{{ diary.name }}</h1>
+<h2>Data: {{ diary.date }}</h2>
+<a href="{% url 'diary_list' %}">List Diary</a>
+<table>
     <tr>
-      <th>Nazwa produktu</th>
-      <th>Białko</th>
-      <th>Tłuszcz</th>
-      <th>Węglowodany</th>
-      <th>Kalorie</th>
+        <th>Nazwa produktu</th>
+        <th>Białko</th>
+        <th>Tłuszcz</th>
+        <th>Węglowodany</th>
+        <th>Kalorie</th>
     </tr>
     {% for product in products %}
-      <tr>
-        <td>{{ product.name }}</td>
-        <td>{{ product.protein }}g</td>
-        <td>{{ product.fat }}g</td>
-        <td>{{ product.carbo }}g</td>
-        <td>{{ product.calories }} kcal</td>
-        <td>
-          <form method="post" action="{% url 'diary_remove_product' diary.id product.id %}">
-            {%csrf_token%}
-            <button type="submit">Delete</button>
-          </form>
-      </tr>
+        <tr>
+            <td>{{ product.name }}</td>
+            <td>{{ product.protein }}g</td>
+            <td>{{ product.fat }}g</td>
+            <td>{{ product.carbo }}g</td>
+            <td>{{ product.calories }} kcal</td>
+            <td>
+                <form method="post" action="{% url 'diary_remove_product' diary.id product.id %}">
+                    {% csrf_token %}
+                    <button type="submit">Delete</button>
+                </form>
+            </td>
+        </tr>
     {% endfor %}
-    <h3>Add product</h3>
-    <form method="post" action="{% url 'diary_add_product' diary.id%}">
-    {%csrf_token%}
-    <label for="product">Produt:</label>
+</table>
+<h3>Add product</h3>
+<form method="post" action="{% url 'add_product_to_diary' diary_id=diary.id%}">
+    {% csrf_token %}
+    <label for="product">Product:</label>
     <select id="product" name="product">
-      {% for product in diary.products.all %}
-      <option value="{{ product.id }}">{{ product.name }}</option>
-      {% endfor %}
+        {% for product in all_products %}
+            <option value="{{ product.id }}">{{ product.name }}</option>
+        {% endfor %}
     </select>
     <button type="submit">Add</button>
-    </form>
-    <tr>
-      <td colspan="4" style="text-align:right;">Suma kalorii:</td>
-      <td>{{ total_calories }} kcal</td>
-    </tr>
-  </table>
-{% endblock %}
-</body>
-</html> 
+</form>
+<p><a href="{% url 'add_product_to_diary' diary_id=diary.id %}">add product</a></p>
+
+
+

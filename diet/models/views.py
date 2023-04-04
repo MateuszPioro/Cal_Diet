@@ -3,6 +3,12 @@ from rest_framework import viewsets
 from .serializer import ProductSerializer,DiarySerializer
 from django.shortcuts import render, get_object_or_404, redirect
 from .forms import ProductForm, DiaryForm
+from django.contrib.auth.decorators import login_required
+from django.http import HttpResponse
+
+@login_required
+def private_place(request):
+    return HttpResponse("Shhh, members only!", content_type="text/plain")
 
 class ProductViewSet(viewsets.ModelViewSet):
     queryset=Product.objects.all()

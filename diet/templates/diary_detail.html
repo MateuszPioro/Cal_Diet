@@ -1,10 +1,9 @@
  
-{% block title %}
-    {{ diary.name }} - Diary Details
-{% endblock %}
+ 
 
-<h1>{{ diary.name }}</h1>
-<h2>Data: {{ diary.date }}</h2>
+ 
+<h1>Data: {{ diary.date }}</h1>
+<h2>{{ diary.name }}</h2>
 <a href="{% url 'diary_list' %}">List Diary</a>
 <table>
     <tr>
@@ -29,8 +28,10 @@
             </td>
         </tr>
     {% endfor %}
+    
 </table>
-<h3>Add product</h3>
+ 
+ <h3>Add product</h3>
 <form method="post" action="{% url 'add_product_to_diary' diary_id=diary.id%}">
     {% csrf_token %}
     <label for="product">Product:</label>
@@ -41,7 +42,8 @@
     </select>
     <button type="submit">Add</button>
 </form>
-<p><a href="{% url 'add_product_to_diary' diary_id=diary.id %}">add product</a></p>
+<p><a href="{% url 'add_product_to_diary' diary_id=diary.id %}">add product properly</a></p>  
 
-
-
+ 
+<h5>2 opcja</h5>
+<p><a href="{% url 'product_list' %}">Add product</a></p>

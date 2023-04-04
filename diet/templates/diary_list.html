@@ -11,6 +11,6 @@
 		<li><a href="{% url 'diary_detail' diary.id %}">{{ diary.name }} - {{ diary.date }}</a></li>
 		{%endfor%}
 	</ul>
- 
+	<a href="{% url 'product_list' %}">Lista produktów</a>
 </body>
 </html>  

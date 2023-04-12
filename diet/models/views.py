@@ -6,9 +6,10 @@ from .forms import ProductForm, DiaryForm
 from django.contrib.auth.decorators import login_required
 from django.http import HttpResponse
 
-@login_required
-def private_place(request):
-    return HttpResponse("Shhh, members only!", content_type="text/plain")
+
+# @login_required
+# def private_place(request):
+#     return HttpResponse("Shhh, members only!", content_type="text/plain")
 
 class ProductViewSet(viewsets.ModelViewSet):
     queryset=Product.objects.all()
@@ -96,6 +97,24 @@ def add_product_to_diary(request, diary_id):
     }
 
     return render(request, 'diary_detail.html', context)
+
+    
+def update_product_grams(request, diary_id, product_id):
+    diary = get_object_or_404(Diary, pk=diary_id)
+    product = get_object_or_404(Product, pk=product_id)
+    if request.method == 'POST':
+        grams = request.POST.get('grams')
+        if grams:
+            grams = float(grams)
+            factor = grams / product.grams
+            product.grams = int(grams)
+            product.protein = int(round(product.protein * factor))
+            product.fat = int(round(product.fat * factor))
+            product.carbo = int(round(product.carbo * factor))
+            product.calories = round(product.calories()*factor,2)
+            product.save()
+        return redirect('diary_detail', diary_id=diary_id)
+
 
 
  

@@ -21,4 +21,5 @@ urlpatterns = [
     path('product/<int:product_id>',views.update_product,name='update_product'),
     path('add_diary/',views.add_diary,name="add_diary"),
     path('diary/<int:diary_id>/add_product/', views.add_product_to_diary, name='add_product_to_diary'),
+    path('diary/<int:diary_id>/update_product_grams/<int:product_id>/',views.update_product_grams, name='update_product_grams'),
 ]

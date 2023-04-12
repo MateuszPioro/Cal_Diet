@@ -7,12 +7,13 @@ class Product(models.Model):
     protein=models.FloatField()
     fat=models.FloatField()
     carbo=models.FloatField()
+    grams=models.FloatField(default=100)
      
     
     
     def calories(self):
         calories = (self.protein*4) + (self.carbo*4)+(self.fat*9)
-        return calories
+        return int(calories)
     
     def __str__(self) -> str:
         return self.name

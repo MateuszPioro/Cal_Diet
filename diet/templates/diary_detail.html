@@ -1,5 +1,6 @@
  
- 
+
+
 
  
 <h1>Data: {{ diary.date }}</h1>
@@ -12,6 +13,7 @@
         <th>Tłuszcz</th>
         <th>Węglowodany</th>
         <th>Kalorie</th>
+        <th>Gramy</th>
     </tr>
     {% for product in products %}
         <tr>
@@ -20,12 +22,21 @@
             <td>{{ product.fat }}g</td>
             <td>{{ product.carbo }}g</td>
             <td>{{ product.calories }} kcal</td>
+            <td>{{product.grams}}g</td>
             <td>
                 <form method="post" action="{% url 'diary_remove_product' diary.id product.id %}">
                     {% csrf_token %}
                     <button type="submit">Delete</button>
                 </form>
             </td>
+            <td>
+                <form method="post" action="{%url 'update_product_grams' diary.id product.id %}">
+                    {%csrf_token%}
+                    <input type="number" name="grams" value="{{product.grams}}">
+                    <button type="submit">update product</button>
+                </form>
+            </td>
+            
         </tr>
     {% endfor %}
     

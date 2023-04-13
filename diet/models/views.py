@@ -69,17 +69,29 @@ def diary_list(request):
 
 def diary_detail(request,diary_id):
     diary = get_object_or_404(Diary,pk=diary_id)
-    products=diary.products.all()
-    total_calories=diary.calories()
-    return render(request, 'diary_detail.html', {'diary': diary, 'products': products, 'total_calories': total_calories})
-
+    products = diary.products.all()
+    total_calories = diary.calories
+    total_carbo = diary.total_carbo
+    total_fat = diary.total_fat
+    total_protein = diary.total_protein
+    context={
+        'diary': diary,
+        'products': products,
+        'total':{
+            'calories': total_calories,
+            'carbo': total_carbo, 
+            'protein': total_protein, 
+            'fat': total_fat
+        }
+    }
+    return render(request,'diary_detail.html',context)
+     
+     
 def diary_remove_product(request,diary_id,product_id):
     diary=get_object_or_404(Diary,pk=diary_id)
     product=get_object_or_404(Product,pk=product_id)
     diary.products.remove(product)
     return redirect('diary_detail',diary_id=diary_id)
-
-
 
 def add_product_to_diary(request, diary_id):
     diary = Diary.objects.get(pk=diary_id)
@@ -96,7 +108,7 @@ def add_product_to_diary(request, diary_id):
         'all_products': all_products,
     }
 
-    return render(request, 'diary_detail.html', context)
+    return render(request, 'diary_add_product.html', context)
 
     
 def update_product_grams(request, diary_id, product_id):

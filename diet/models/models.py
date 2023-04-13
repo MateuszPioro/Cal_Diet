@@ -26,8 +26,24 @@ class Diary(models.Model):
     name=models.CharField(max_length=100, null=True)
     products=models.ManyToManyField(Product)
     
+    @property
     def calories(self):
         total_calories=0
         for product in self.products.all():
             total_calories+=product.calories()
         return total_calories
+    
+    @property
+    def total_carbo(self):
+        return sum(self.products.all().values_list('carbo', flat=True))
+    
+    
+    @property
+    def total_protein(self):
+        return sum(self.products.all().values_list('protein', flat=True))
+    
+    @property
+    def total_fat(self):
+        return sum(self.products.all().values_list('fat', flat=True))
+    
+    

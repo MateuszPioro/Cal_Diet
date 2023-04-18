@@ -6,6 +6,8 @@
 <body>
 	<h1>Lista produktów:</h1>
 	<a href="{% url 'add_product' %}">Dodaj produkt</a>
+	<br>
+	<a href="{% url 'diary_list' %}">Lista dzienników</a>
 	<ul>
 		{% for product in products %}
 		<li>{{ product.name }} - Białko: {{ product.protein }} g, Tłuszcz: {{ product.fat }} g, Węglowodany: {{ product.carbo }} g, Kalorie: {{ product.calories }}

@@ -1,14 +1,5 @@
 
-
-
-  <h1>Dodaj produkt do dziennika</h1>
-  <form method="post">
-    {% csrf_token %}
-    {{ form.as_p }}
-    <button type="submit">Dodaj</button>
-  </form>
-
-  <h3>Add product</h3>
+<h1>Choice product</h1>
   <form method="post" action="{% url 'add_product_to_diary' diary_id=diary.id%}">
       {% csrf_token %}
       <label for="product">Product:</label>
@@ -18,4 +9,7 @@
           {% endfor %}
       </select>
       <button type="submit">Add</button>
-  </form>
+</form>
+
+<h2>Add product</h2>
+  <a href="{% url 'add_product'%}">add new product<a/>

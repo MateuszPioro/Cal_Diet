@@ -39,22 +39,19 @@
             
         </tr>
     {% endfor %}
-    
+    <div>
+        <tr>
+            <td>{{Null}}</td>
+            <td>{{ total.protein }} g</td>
+            <td>{{ total.fat }} g</td>
+            <td>{{ total.carbo }} g</td>
+            <td>{{ total.calories }} kcal</td>
+        </tr>
+    </div>
 </table>
  
- <h3>Add product</h3>
-<form method="post" action="{% url 'add_product_to_diary' diary_id=diary.id%}">
-    {% csrf_token %}
-    <label for="product">Product:</label>
-    <select id="product" name="product">
-        {% for product in all_products %}
-            <option value="{{ product.id }}">{{ product.name }}</option>
-        {% endfor %}
-    </select>
-    <button type="submit">Add</button>
-</form>
+
 <p><a href="{% url 'add_product_to_diary' diary_id=diary.id %}">add product properly</a></p>  
 
  
-<h5>2 opcja</h5>
-<p><a href="{% url 'product_list' %}">Add product</a></p>
+ 

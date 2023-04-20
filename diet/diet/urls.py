@@ -16,10 +16,14 @@ Including another URLconf
  
 from django.contrib import admin
 from django.urls import path, include
+from models import views as diet_views 
  
 
 urlpatterns = [
     path('admin/', admin.site.urls),
-    path('', include('models.urls'))
-    
+    path('', include('models.urls')),
+    path('private_place/',diet_views.private_place),
+    path('accounts/',include("django.contrib.auth.urls")),
+    path('user_info/',diet_views.user_info),
+    path('staff_place/',diet_views.staff_place),
 ]

@@ -5,12 +5,29 @@ from django.shortcuts import render, get_object_or_404, redirect
 from .forms import ProductForm, DiaryForm
 from django.contrib.auth.decorators import login_required
 from django.http import HttpResponse
+from django.contrib.auth.decorators import user_passes_test
 
 
-# @login_required
-# def private_place(request):
-#     return HttpResponse("Shhh, members only!", content_type="text/plain")
+@login_required
+def private_place(request):
+    return HttpResponse("Shhh, members only!", content_type="text/plain")
 
+@user_passes_test(lambda user: user.is_staff)
+def staff_place(request):
+    return HttpResponse("Employees must wash hands", content_type="text/plain")
+
+def user_info(request):
+    text = f"""
+        Selected HttpRequest.user attributes:
+
+        username:     {request.user.username}
+        is_anonymous: {request.user.is_anonymous}
+        is_staff:     {request.user.is_staff}
+        is_superuser: {request.user.is_superuser}
+        is_active:    {request.user.is_active}
+    """
+
+    return HttpResponse(text, content_type="text/plain")
 class ProductViewSet(viewsets.ModelViewSet):
     queryset=Product.objects.all()
     serializer_class = ProductSerializer

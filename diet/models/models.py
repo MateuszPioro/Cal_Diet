@@ -1,5 +1,5 @@
 from django.db import models
-
+ 
  
 
 class Product(models.Model):
@@ -45,5 +45,9 @@ class Diary(models.Model):
     @property
     def total_fat(self):
         return sum(self.products.all().values_list('fat', flat=True))
+    
+ 
+    
+
     
     

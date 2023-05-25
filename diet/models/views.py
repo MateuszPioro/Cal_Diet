@@ -8,6 +8,7 @@ from django.http import HttpResponse
 from django.contrib.auth.decorators import user_passes_test
 
 
+
 @login_required
 def private_place(request):
     return HttpResponse("Shhh, members only!", content_type="text/plain")
